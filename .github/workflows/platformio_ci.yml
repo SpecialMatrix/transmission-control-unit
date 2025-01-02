@@ -8,7 +8,14 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.platformio/.cache
+          key: ${{ runner.os }}-pio
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -26,10 +33,10 @@ jobs:
       - name: Generate Coverage Report
         run: |
           mkdir "coverage"
-          gcovr -r . --html --html-details -o ./coverage/coverage_report.html ^
-              --exclude ".pio" ^
-              --exclude "test" ^
-              --exclude "lib/dbc"
+          gcovr -r . --html --html-details -o ./coverage/coverage_report.html `
+            --exclude ".pio" `
+            --exclude "test" `
+            --exclude "lib/dbc"
 
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v3

@@ -1,6 +1,6 @@
 name: PlatformIO CI
 
-on: [push]
+on: ["push", "pull_request"]
 
 jobs:
   build-and-test:
@@ -42,3 +42,4 @@ jobs:
         uses: coverallsapp/github-action@v2
         with:
           files: coverage.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}

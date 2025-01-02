@@ -39,8 +39,7 @@ jobs:
           mkdir "coverage"
           gcovr -r . --json-pretty -o coverage.json --exclude ".pio" --exclude "test" --exclude "lib/dbc"
 
-      - name: Upload Coverage to Coveralls
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-        run: |
-          coveralls --json-file coverage.json
+      - name: Upload to Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          files: coverage.json

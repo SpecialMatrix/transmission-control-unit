@@ -42,8 +42,12 @@ jobs:
             --exclude "test" `
             --exclude "lib/dbc"
 
+      - name: Create Zip with Base Folder
+        run: |
+          zip -r coverage.zip coverage/
+
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
-          path: coverage/
+          path: coverage-report.zip

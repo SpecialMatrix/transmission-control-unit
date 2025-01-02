@@ -36,8 +36,7 @@ jobs:
 
       - name: Generate Coverage Report
         run: |
-          mkdir "coverage"
-          gcovr -r . --json-pretty -o coverage.json --exclude ".pio" --exclude "test" --exclude "lib/dbc"
+          gcovr -r . --coveralls -o coverage.json --exclude ".pio" --exclude "test" --exclude "lib/dbc"
 
       - name: Upload to Coveralls
         uses: coverallsapp/github-action@v2

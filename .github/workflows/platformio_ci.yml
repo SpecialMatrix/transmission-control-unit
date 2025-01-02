@@ -34,9 +34,9 @@ jobs:
       - name: Generate Coverage Report
         run: |
           mkdir "coverage"
-          gcovr -r . --html --html-details -o ./coverage/coverage_report.html ^
-            --exclude ".pio" ^
-            --exclude "test" ^
+          gcovr -r . --html --html-details -o ./coverage/coverage_report.html `
+            --exclude ".pio" `
+            --exclude "test" `
             --exclude "lib/dbc"
 
       - name: Upload Coverage Report

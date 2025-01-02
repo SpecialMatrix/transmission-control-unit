@@ -29,7 +29,7 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install platformio gcovr
+          pip install platformio gcovr coveralls
 
       - name: Run tests
         run: pio test -v -e native
@@ -37,13 +37,10 @@ jobs:
       - name: Generate Coverage Report
         run: |
           mkdir "coverage"
-          gcovr -r . --html --html-details -o ./coverage/coverage_report.html `
-            --exclude ".pio" `
-            --exclude "test" `
-            --exclude "lib/dbc"
+          gcovr -r . --json-pretty coverage.json --exclude ".pio" --exclude "test" --exclude "lib/dbc"
 
-      - name: Upload Coverage Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: coverage/
+      - name: Upload Coverage to Coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        run: |
+          coveralls --json-file coverage.json
